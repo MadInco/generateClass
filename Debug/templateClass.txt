@@ -1,0 +1,38 @@
+class XXX {
+private:
+//fields, methods
+	static void _swap(XXX& first, XXX& second);
+	void swap(XXX& other);
+public:
+	XXX();
+	XXX(const XXX& other);
+	XXX(XXX&& other);
+	XXX& operator=(const XXX& other);
+	XXX& operator=(XXX&& other);
+	~XXX();
+};
+void XXX::_swap(XXX& first, XXX& second) {
+	using std::swap;
+	if (&first != &second) {
+		//swap(first.XField, second.XField);//where XField is some class field
+	}
+}
+void XXX::swap(XXX& other) {
+	_swap(*this, other);
+}
+XXX::XXX(const XXX& other) {
+	//this->XField = other.XField;//where XField is some class field
+}
+XXX::XXX(XXX&& other) {
+	*this = std::move(other);
+}
+XXX& XXX::operator=(const XXX& other) {
+	XXX temp(other);
+	this->swap(temp);
+	return *this;
+}
+XXX& XXX::operator=(XXX&& other) {
+	this->swap(other);
+	return *this;
+}
+XXX::~XXX() {}
